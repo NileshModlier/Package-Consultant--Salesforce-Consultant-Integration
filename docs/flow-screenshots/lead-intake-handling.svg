@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="760" viewBox="0 0 1100 760">
+  <rect width="1100" height="760" fill="#F7F4EF"/>
+  <text x="40" y="48" font-family="Segoe UI, Calibri, sans-serif" font-size="24" font-weight="700" fill="#1B3A4B">Lead Intake Handling</text>
+  <text x="40" y="74" font-family="Segoe UI, Calibri, sans-serif" font-size="14" fill="#3D4A52">Record-triggered after save. Diagram of the metadata, not a Flow Builder capture.</text>
+  <g font-family="Segoe UI, Calibri, sans-serif" font-size="14" fill="#1A1A1A">
+    <rect x="370" y="110" width="280" height="64" rx="8" fill="#1B3A4B"/>
+    <text x="510" y="136" text-anchor="middle" fill="#FFFFFF" font-weight="700">Start</text>
+    <text x="510" y="156" text-anchor="middle" fill="#D6E2EA" font-size="12">Intake Ref set, and new or just filled</text>
+    <rect x="80" y="250" width="280" height="72" rx="8" fill="#E7F0F8" stroke="#1B3A4B"/>
+    <text x="220" y="278" text-anchor="middle" font-weight="700">Get Inbound Sales</text>
+    <text x="220" y="298" text-anchor="middle" font-size="12">Queue Inbound_Sales</text>
+    <polygon points="510,230 620,290 510,350 400,290" fill="#FFF8E8" stroke="#8A5A00"/>
+    <text x="510" y="286" text-anchor="middle" font-weight="700">Queue found?</text>
+    <rect x="760" y="254" width="280" height="72" rx="8" fill="#F8E6E3" stroke="#8C3A32"/>
+    <text x="900" y="282" text-anchor="middle" font-weight="700">Stop the save</text>
+    <text x="900" y="302" text-anchor="middle" font-size="12">Queue missing</text>
+    <rect x="80" y="420" width="280" height="72" rx="8" fill="#E7F0F8" stroke="#1B3A4B"/>
+    <text x="220" y="448" text-anchor="middle" font-weight="700">Assign lead</text>
+    <text x="220" y="468" text-anchor="middle" font-size="12">Owner = Inbound Sales</text>
+    <rect x="80" y="560" width="280" height="72" rx="8" fill="#E7F6F1" stroke="#1F6F6A"/>
+    <text x="220" y="588" text-anchor="middle" font-weight="700">Create review task</text>
+    <text x="220" y="608" text-anchor="middle" font-size="12">Review intake {ref}</text>
+    <polygon points="700,470 810,530 700,590 590,530" fill="#FFF8E8" stroke="#8A5A00"/>
+    <text x="700" y="526" text-anchor="middle" font-weight="700">Still unworked?</text>
+    <rect x="760" y="640" width="280" height="72" rx="8" fill="#FBF3E4" stroke="#8A5A00"/>
+    <text x="900" y="668" text-anchor="middle" font-weight="700">Escalation task</text>
+    <text x="900" y="688" text-anchor="middle" font-size="12">24 hours, status still Open - Not Contacted</text>
+  </g>
+  <g stroke="#1B3A4B" stroke-width="2" fill="none">
+    <line x1="510" y1="174" x2="510" y2="230"/>
+    <line x1="400" y1="290" x2="360" y2="290"/>
+    <line x1="620" y1="290" x2="760" y2="290"/>
+    <line x1="220" y1="322" x2="220" y2="420"/>
+    <line x1="220" y1="492" x2="220" y2="560"/>
+    <path d="M510 174 C760 174 700 470 700 470"/>
+    <line x1="700" y1="590" x2="860" y2="640"/>
+  </g>
+  <text x="430" y="214" font-family="Segoe UI, Calibri, sans-serif" font-size="12" fill="#3D4A52">Immediate</text>
+  <text x="760" y="200" font-family="Segoe UI, Calibri, sans-serif" font-size="12" fill="#3D4A52">Scheduled +24 hours</text>
+  <text x="300" y="284" font-family="Segoe UI, Calibri, sans-serif" font-size="12" fill="#1F6F6A">Yes</text>
+  <text x="660" y="278" font-family="Segoe UI, Calibri, sans-serif" font-size="12" fill="#8C3A32">No</text>
+  <text x="640" y="620" font-family="Segoe UI, Calibri, sans-serif" font-size="12" fill="#1F6F6A">Yes</text>
+</svg>

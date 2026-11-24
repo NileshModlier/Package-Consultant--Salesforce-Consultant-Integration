@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Intake_Channel_Required</fullName>
+    <active>true</active>
+    <description>An intake lead must name the channel that received it.</description>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(Intake_Ref__c)),
+  ISBLANK(TEXT(Intake_Channel__c))
+)</errorConditionFormula>
+    <errorDisplayField>Intake_Channel__c</errorDisplayField>
+    <errorMessage>Intake Channel is required when Intake Ref is set.</errorMessage>
+</ValidationRule>

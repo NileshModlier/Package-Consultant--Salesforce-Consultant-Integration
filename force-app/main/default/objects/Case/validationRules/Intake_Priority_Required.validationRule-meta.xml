@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Intake_Priority_Required</fullName>
+    <active>true</active>
+    <description>An intake case must have a priority so routing and response monitoring have a value to read.</description>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(Intake_Ref__c)),
+  ISBLANK(TEXT(Priority))
+)</errorConditionFormula>
+    <errorDisplayField>Priority</errorDisplayField>
+    <errorMessage>Priority is required when Intake Ref is set.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Intake_Ref_Immutable</fullName>
+    <active>true</active>
+    <description>The intake reference cannot be replaced or cleared after it is stored.</description>
+    <errorConditionFormula>AND(
+  NOT(ISNEW()),
+  ISCHANGED(Intake_Ref__c),
+  NOT(ISBLANK(PRIORVALUE(Intake_Ref__c)))
+)</errorConditionFormula>
+    <errorDisplayField>Intake_Ref__c</errorDisplayField>
+    <errorMessage>Intake Ref cannot be changed after it is set.</errorMessage>
+</ValidationRule>

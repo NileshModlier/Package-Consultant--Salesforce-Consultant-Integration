@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Qualification_Reason_Required</fullName>
+    <active>true</active>
+    <description>Closing an intake lead as not converted requires a reason. Leads with no intake reference are unaffected.</description>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(Intake_Ref__c)),
+  ISPICKVAL(Status, "Closed - Not Converted"),
+  ISBLANK(Qualification_Reason__c)
+)</errorConditionFormula>
+    <errorDisplayField>Qualification_Reason__c</errorDisplayField>
+    <errorMessage>Qualification Reason is required when an intake lead is Closed - Not Converted.</errorMessage>
+</ValidationRule>

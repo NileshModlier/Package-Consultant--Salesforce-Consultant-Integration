@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>When an intake reference is first stored on a Lead, assign the Lead to the Inbound Sales queue and create a review task. Twenty-four hours after create, if Status is still Open - Not Contacted, create a high-priority escalation task.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>EscalationTaskSubject</name>
+        <dataType>String</dataType>
+        <expression>&quot;Escalation: intake &quot; &amp; {!$Record.Intake_Ref__c} &amp; &quot; unworked for 24 hours&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>ReviewTaskDescription</name>
+        <dataType>String</dataType>
+        <expression>&quot;Channel: &quot; &amp; TEXT({!$Record.Intake_Channel__c}) &amp; BR() &amp; &quot;Read Intake Summary on the lead. Do not replace Intake Ref.&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>ReviewTaskSubject</name>
+        <dataType>String</dataType>
+        <expression>&quot;Review intake &quot; &amp; {!$Record.Intake_Ref__c}</expression>
+    </formulas>
+    <formulas>
+        <name>Today</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>Lead Intake Handling {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lead Intake Handling</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Escalation_Task</name>
+        <label>Create escalation task</label>
+        <locationX>578</locationX>
+        <locationY>720</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>Today</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>ReviewTaskDescription</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>EscalationTaskSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>false</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Review_Task</name>
+        <label>Create review task</label>
+        <locationX>176</locationX>
+        <locationY>576</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>Today</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>ReviewTaskDescription</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Inbound_Sales_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>ReviewTaskSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>false</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Inbound_Sales_Queue</name>
+        <label>Get Inbound Sales queue</label>
+        <locationX>176</locationX>
+        <locationY>168</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Queue_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Inbound_Sales</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Queue</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Group</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Assign_To_Inbound_Sales</name>
+        <label>Assign to Inbound Sales</label>
+        <locationX>176</locationX>
+        <locationY>384</locationY>
+        <connector>
+            <targetReference>Create_Review_Task</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Inbound_Sales_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <decisions>
+        <name>Queue_Found</name>
+        <label>Queue found</label>
+        <locationX>176</locationX>
+        <locationY>276</locationY>
+        <defaultConnector>
+            <targetReference>Inbound_Sales_Queue_Missing</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Queue missing</defaultConnectorLabel>
+        <rules>
+            <name>Inbound_Sales_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Inbound_Sales_Queue.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_To_Inbound_Sales</targetReference>
+            </connector>
+            <label>Inbound Sales found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Still_Unworked</name>
+        <label>Still unworked</label>
+        <locationX>578</locationX>
+        <locationY>504</locationY>
+        <defaultConnectorLabel>Already worked</defaultConnectorLabel>
+        <rules>
+            <name>Status_Is_Open_Not_Contacted</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Open - Not Contacted</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Escalation_Task</targetReference>
+            </connector>
+            <label>Open - Not Contacted</label>
+        </rules>
+    </decisions>
+    <customErrors>
+        <name>Inbound_Sales_Queue_Missing</name>
+        <label>Inbound Sales queue missing</label>
+        <locationX>440</locationX>
+        <locationY>384</locationY>
+        <customErrorMessages>
+            <errorMessage>The Inbound Sales queue is not available, so this intake lead was not saved.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <start>
+        <locationX>176</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Inbound_Sales_Queue</targetReference>
+        </connector>
+        <filterFormula>AND(NOT(ISBLANK({!$Record.Intake_Ref__c})), OR(ISNEW(), ISCHANGED({!$Record.Intake_Ref__c})))</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerOrder>10</triggerOrder>
+        <scheduledPaths>
+            <name>Escalate_After_24_Hours</name>
+            <connector>
+                <targetReference>Still_Unworked</targetReference>
+            </connector>
+            <label>Escalate after 24 hours</label>
+            <offsetNumber>24</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

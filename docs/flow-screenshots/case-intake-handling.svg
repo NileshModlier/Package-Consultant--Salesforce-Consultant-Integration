@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="860" viewBox="0 0 1180 860">
+  <rect width="1180" height="860" fill="#F7F4EF"/>
+  <text x="40" y="48" font-family="Segoe UI, Calibri, sans-serif" font-size="24" font-weight="700" fill="#1B3A4B">Case Intake Handling</text>
+  <text x="40" y="74" font-family="Segoe UI, Calibri, sans-serif" font-size="14" fill="#3D4A52">Record-triggered after save. Diagram of the metadata, not a Flow Builder capture.</text>
+  <g font-family="Segoe UI, Calibri, sans-serif" font-size="14" fill="#1A1A1A">
+    <rect x="400" y="100" width="300" height="64" rx="8" fill="#1B3A4B"/>
+    <text x="550" y="126" text-anchor="middle" fill="#FFFFFF" font-weight="700">Start</text>
+    <text x="550" y="146" text-anchor="middle" fill="#D6E2EA" font-size="12">Intake Ref set, and new or just filled</text>
+    <rect x="80" y="230" width="260" height="70" rx="8" fill="#E7F0F8" stroke="#1B3A4B"/>
+    <text x="210" y="258" text-anchor="middle" font-weight="700">Get Support Tier 1</text>
+    <text x="210" y="278" text-anchor="middle" font-size="12">Queue Support_Tier_1</text>
+    <polygon points="500,220 610,280 500,340 390,280" fill="#FFF8E8" stroke="#8A5A00"/>
+    <text x="500" y="276" text-anchor="middle" font-weight="700">Queue found?</text>
+    <rect x="860" y="246" width="270" height="68" rx="8" fill="#F8E6E3" stroke="#8C3A32"/>
+    <text x="995" y="274" text-anchor="middle" font-weight="700">Stop the save</text>
+    <text x="995" y="294" text-anchor="middle" font-size="12">Queue missing</text>
+    <rect x="80" y="380" width="260" height="68" rx="8" fill="#E7F0F8" stroke="#1B3A4B"/>
+    <text x="210" y="408" text-anchor="middle" font-weight="700">Assign case</text>
+    <text x="210" y="428" text-anchor="middle" font-size="12">Owner = Support Tier 1</text>
+    <polygon points="210,500 310,555 210,610 110,555" fill="#FFF8E8" stroke="#8A5A00"/>
+    <text x="210" y="551" text-anchor="middle" font-weight="700">Priority High?</text>
+    <rect x="40" y="680" width="250" height="72" rx="8" fill="#FBF3E4" stroke="#8A5A00"/>
+    <text x="165" y="708" text-anchor="middle" font-weight="700">Urgent response task</text>
+    <text x="165" y="728" text-anchor="middle" font-size="12">Task priority High</text>
+    <rect x="360" y="680" width="250" height="72" rx="8" fill="#E7F6F1" stroke="#1F6F6A"/>
+    <text x="485" y="708" text-anchor="middle" font-weight="700">Standard response task</text>
+    <text x="485" y="728" text-anchor="middle" font-size="12">Task priority Normal</text>
+    <polygon points="780,500 880,555 780,610 680,555" fill="#FFF8E8" stroke="#8A5A00"/>
+    <text x="780" y="551" text-anchor="middle" font-weight="700">High and New?</text>
+    <rect x="680" y="680" width="250" height="72" rx="8" fill="#FBF3E4" stroke="#8A5A00"/>
+    <text x="805" y="708" text-anchor="middle" font-weight="700">4-hour monitor</text>
+    <text x="805" y="728" text-anchor="middle" font-size="12">Urgent response still outstanding</text>
+    <polygon points="1040,500 1140,555 1040,610 940,555" fill="#FFF8E8" stroke="#8A5A00"/>
+    <text x="1040" y="551" text-anchor="middle" font-weight="700">Still New?</text>
+    <rect x="920" y="760" width="250" height="72" rx="8" fill="#FBF3E4" stroke="#8A5A00"/>
+    <text x="1045" y="788" text-anchor="middle" font-weight="700">24-hour monitor</text>
+    <text x="1045" y="808" text-anchor="middle" font-size="12">Response still outstanding</text>
+  </g>
+  <g stroke="#1B3A4B" stroke-width="2" fill="none">
+    <line x1="500" y1="164" x2="500" y2="220"/>
+    <line x1="390" y1="280" x2="340" y2="265"/>
+    <line x1="610" y1="280" x2="860" y2="280"/>
+    <line x1="210" y1="300" x2="210" y2="380"/>
+    <line x1="210" y1="448" x2="210" y2="500"/>
+    <line x1="110" y1="590" x2="110" y2="680"/>
+    <line x1="310" y1="590" x2="485" y2="680"/>
+    <path d="M550 164 C780 180 780 500 780 500"/>
+    <path d="M620 140 C1040 140 1040 500 1040 500"/>
+    <line x1="780" y1="610" x2="805" y2="680"/>
+    <line x1="1040" y1="610" x2="1045" y2="760"/>
+  </g>
+  <text x="300" y="200" font-family="Segoe UI, Calibri, sans-serif" font-size="12" fill="#3D4A52">Immediate</text>
+  <text x="700" y="210" font-family="Segoe UI, Calibri, sans-serif" font-size="12" fill="#3D4A52">+4 hours</text>
+  <text x="980" y="200" font-family="Segoe UI, Calibri, sans-serif" font-size="12" fill="#3D4A52">+24 hours</text>
+</svg>

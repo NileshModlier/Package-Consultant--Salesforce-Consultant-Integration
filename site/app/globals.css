@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #07111c;
+  --color-ink-2: #0c1a2c;
+  --color-paper: #e7eef8;
+  --color-mute: #93a4bd;
+  --color-sf: #1b96ff;
+  --color-cyan: #5ce1ff;
+  --color-ember: #ff8a3d;
+  --color-iris: #c4b5fd;
+  --font-sans: var(--font-source);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-plex);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #07111c;
+  color: #e7eef8;
+  font-family: var(--font-source), "Segoe UI", sans-serif;
+}
+
+::selection {
+  background: rgba(27, 150, 255, 0.35);
+}
+
+.hero-glow {
+  background:
+    radial-gradient(920px 460px at 8% -12%, rgba(27, 150, 255, 0.38), transparent 62%),
+    radial-gradient(680px 380px at 92% 0%, rgba(92, 225, 255, 0.14), transparent 58%),
+    radial-gradient(540px 360px at 72% 18%, rgba(164, 120, 255, 0.2), transparent 52%),
+    #07111c;
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(18, 42, 74, 0.55), rgba(7, 17, 28, 0.78));
+  border: 1px solid rgba(176, 214, 255, 0.14);
+  backdrop-filter: blur(18px);
+}
+
+.rail-ember {
+  background: linear-gradient(#ff8a3d, rgba(255, 138, 61, 0.15));
+}
+
+.rail-cyan {
+  background: linear-gradient(#5ce1ff, rgba(92, 225, 255, 0.12));
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #5ce1ff;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

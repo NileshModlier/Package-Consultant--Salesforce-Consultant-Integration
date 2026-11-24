@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Intake_Ref_Format</fullName>
+    <active>true</active>
+    <description>When an intake reference is present, it must use INT-YYYYMMDD-####.</description>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(Intake_Ref__c)),
+  NOT(REGEX(Intake_Ref__c, "^INT-[0-9]{8}-[0-9]{4}$"))
+)</errorConditionFormula>
+    <errorDisplayField>Intake_Ref__c</errorDisplayField>
+    <errorMessage>Intake Ref must use the form INT-YYYYMMDD-####.</errorMessage>
+</ValidationRule>

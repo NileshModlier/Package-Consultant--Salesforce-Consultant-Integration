@@ -1,0 +1,9 @@
+.sfdx/
+.sf/
+.localdev/
+node_modules/
+__pycache__/
+*.py[cod]
+.env
+*.sqlite
+intake_outbox.sqlite
